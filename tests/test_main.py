@@ -2,24 +2,14 @@ import sys
 import os
 import pytest
 
-# Força o Python a encontrar o main.py na pasta raiz
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from main import saudacao, calcular_media
+from main import autenticar_usuario
 
-class TestSaudacao:
-    def test_saudacao_nome_valido(self):
-        resultado = saudacao("Nicolas")
-        assert "Nicolas" in resultado
-
-    def test_saudacao_tipo_invalido(self):
-        with pytest.raises(TypeError):
-            saudacao(123)
-
-class TestCalcularMedia:
-    def test_media_simples(self):
-        assert calcular_media([10, 8, 6]) == 8.0
-
-    def test_lista_vazia(self):
-        with pytest.raises(ValueError):
-            calcular_media([])
+def test_autenticacao_falsa():
+    # Nós sabemos que o usuário 'comum' deve retornar False
+    resultado = autenticar_usuario("comum")
+    
+    # Mas vamos forçar o teste a esperar True. 
+    # Isso vai fazer o Pytest estourar um X Vermelho na pipeline!
+    assert resultado is True

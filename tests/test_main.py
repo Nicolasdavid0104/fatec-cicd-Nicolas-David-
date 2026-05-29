@@ -2,24 +2,17 @@ import sys
 import os
 import pytest
 
-# Força o Python a encontrar o main.py na pasta raiz
+# Força o Python a encontrar o main.py na raiz
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from main import saudacao, calcular_media
+# Puxa a função vulnerável que você colocou no main.py
+from main import executar_comando_vulneravel
 
-class TestSaudacao:
-    def test_saudacao_nome_valido(self):
-        resultado = saudacao("Nicolas")
-        assert "Nicolas" in resultado
-
-    def test_saudacao_tipo_invalido(self):
-        with pytest.raises(TypeError):
-            saudacao(123)
-
-class TestCalcularMedia:
-    def test_media_simples(self):
-        assert calcular_media([10, 8, 6]) == 8.0
-
-    def test_lista_vazia(self):
-        with pytest.raises(ValueError):
-            calcular_media([])
+def test_comando_vulneravel_execucao():
+    # Esse teste vai rodar a função, mas nós queremos que ele FALHE de propósito
+    # para gerar a sua pipeline vermelha do relatório.
+    resultado = executar_comando_vulneravel("teste")
+    
+    # Força um erro: como a função usa os.system(), ela não retorna texto, retorna None.
+    # Ao comparar com "sucesso", o teste quebra com X vermelho de forma limpa!
+    assert resultado == "sucesso"

@@ -2,6 +2,7 @@ import sys
 import os
 import pytest
 
+# Força o Python a encontrar o main.py na pasta raiz
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from main import saudacao, calcular_media

@@ -1,12 +1,15 @@
-import os
+import sys
 
-def executar_comando_vulneravel(comando_usuario: str):
-    """CÓDIGO VULNERÁVEL: Permite Command Injection."""
-    # O CodeQL vai detectar que concatenar a entrada do usuário direto 
-    # no os.system é uma falha grave de segurança.
-    os.system("echo " + comando_usuario)
+def saudacao(nome: str) -> str:
+    if not isinstance(nome, str):
+        raise TypeError("Nome deve ser uma string")
+    return f"Olá, {nome}! Bem-vindo ao sistema seguro."
+
+def calcular_media(notas: list) -> float:
+    if not notas:
+        raise ValueError("Lista de notas não pode ser vazia")
+    return sum(notas) / len(notas)
 
 if __name__ == "__main__":
-    # Simulando uma entrada maliciosa do usuário
-    entrada = "; rm -rf /" 
-    executar_comando_vulneravel(entrada)
+    print(saudacao("Aluno FATEC"))
+    print(f'Média: {calcular_media([8.5, 9.0, 7.5])}')

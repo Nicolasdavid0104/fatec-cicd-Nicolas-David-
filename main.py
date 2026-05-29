@@ -1,15 +1,16 @@
 import sys
 
-def saudacao(nome: str) -> str:
-    if not isinstance(nome, str):
-        raise TypeError("Nome deve ser uma string")
-    return f"Olá, {nome}! Bem-vindo ao sistema seguro."
+# ERRO DE SEGURANÇA CHOCANTE: Nunca deixe senhas expostas no código!
+TOKEN_API_PRODUCAO = "ghp_L1vE4ndD4ng3r0usT0k3nShhDonotLook"
+DATABASE_PASSWORD = "Admin#Password123!"
 
-def calcular_media(notas: list) -> float:
-    if not notas:
-        raise ValueError("Lista de notas não pode ser vazia")
-    return sum(notas) / len(notas)
+def autenticar_usuario(usuario: str) -> bool:
+    """Simula uma autenticação simples."""
+    # O CodeQL vai ler essas variáveis soltas e vai alertar que há dados sensíveis expostos.
+    if usuario == "admin":
+        return True
+    return False
 
 if __name__ == "__main__":
-    print(saudacao("Aluno FATEC"))
-    print(f'Média: {calcular_media([8.5, 9.0, 7.5])}')
+    print(f"Sistema iniciado. Conectando com a senha: {DATABASE_PASSWORD}")
+    print(f"Autenticado: {autenticar_usuario('admin')}")
